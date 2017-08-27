@@ -3,8 +3,90 @@ import java.util.HashMap;
 public class KataTests {
 
 	public static void main(String[] args) {
-		System.out.println(findEvenIndex(new int[] {4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4}));
+		System.out.println(zeros(5));
 	}
+	
+	public static String longestConsec(String[] strarr, int k) {
+        int n = strarr.length;
+        if (n == 0 || k > n || k <= 0)
+          return "";
+          
+        int longest = -1;
+        int longestIndex = -1;
+        
+        for (int i = 1; i < n; i++) {
+          if (strarr[i].length() + strarr[i-1].length() > longest) {
+            longest = strarr[i].length() + strarr[i-1].length();
+            longestIndex = i;
+          }
+        }
+        
+        return strarr[longestIndex-1] + strarr[longestIndex];
+    }
+	
+	public static int zeros(int n) {
+	    int factor = 1;
+	    int numZeros = 0;
+	    boolean less = true;
+	    
+	    while (less) {
+	      double res = n / Math.pow(5, factor);
+	      
+	      if (res < 1) {
+	        less = false;
+	      } else {
+	    	numZeros += (int) res;
+	    	factor++;
+	      }
+	    }
+	    
+	    return numZeros;
+	}
+	
+	public static long factorial(int n) {
+	    if (n == 0)
+	      return 1;
+	    return n * factorial(n-1);
+	  }
+	
+	public static String printDmd(int n) {
+	    if (n <= 0 || n % 2 == 0)
+	      return null;
+	    if (n == 1)
+	      return "*\n";
+	      
+	    StringBuilder dmd = new StringBuilder();
+	    
+	    // top
+	    int len = n - n/2;
+	    for (int i = 0; i < n/2; i++) {
+	      int numStars = i*2 + 1;
+	      
+	      for (int j = 0; j < len - numStars; j++) {
+	        dmd.append(" ");
+	      }
+	      for (int j = 0; j < numStars; j++) {
+	        dmd.append("*");
+	      }
+	      dmd.append("\n");
+	      len++;
+	    }
+	    
+	    // bottom
+	    len = n;
+	    for (int i = n; i >= 1; i -= 2) {
+	      for (int j = 0; j < len-i; j++) {
+	        dmd.append(" ");
+	      }
+	      for (int j = 0; j < i; j++) {
+	        dmd.append("*");
+	      }
+	      dmd.append("\n");
+	      len--;
+	    }
+	    
+	    return dmd.toString();
+		}
 	
 	public static int findEvenIndex(int[] arr) {
 	    if (arr.length == 0)
