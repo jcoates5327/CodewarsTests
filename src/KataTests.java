@@ -1,10 +1,79 @@
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class KataTests {
 
 	public static void main(String[] args) {
-		System.out.println(zeros(5));
+		//System.out.println(Arrays.deepToString(productFib(163427632719l)));
+		
+		int n = 40;
+		System.out.println(Arrays.deepToString(fib(40)));
 	}
+	
+	public static Long[] productFib(long prod) {
+	    int n = 0;
+	    long fn = 0, fn_1 = 1;
+	    boolean less = true;
+	    boolean yes = false;
+	    
+	    while (less)  {
+		      //fn = fib(n);
+		      //fn_1 = fib(n+1);	    	  
+		      long p = fn * fn_1;
+		      
+		      if (p == prod) {
+		        less = false;
+		        yes = true;
+		      } else if (p > prod) {
+		        less = false;
+		      } else {
+		        n++;
+		        
+		      }
+		    }
+	    
+	    Long[] res = yes ? new Long[] {fn, fn_1, 1l} : new Long[] {fn, fn_1, 0l};
+	    
+			return res;
+	  }
+	  
+	  public static Long[] fib(int n) {
+		  Long[] fibs = new Long[n];
+		  fibs[0] = 0l;
+		  fibs[1] = 1l;
+		  
+		  for (int i = 2; i < n; i++) {
+			  fibs[i] = fibs[i-2] + fibs[i-1];
+		  }
+		  
+		  return fibs;
+			  
+//			  if (n % 2 == 0)
+//				  return (long) ((2 / Math.sqrt(5)) * Math.sinh(n * Math.log((1 + Math.sqrt(5)) / 2.0)));
+//			  else
+//				  return (long) ((2 / Math.sqrt(5)) * Math.cosh(n * Math.log((1 + Math.sqrt(5)) / 2.0)));
+		}
+	
+	public static String order(String words) {
+	    if (words.equals(""))
+	      return "";
+	      
+	    String[] arr = words.split(" ");
+	    String[] sorted = new String[arr.length];
+	    Pattern p = Pattern.compile(".*(\\d).*");
+	    
+	    for (String s : arr) {
+	    	System.out.println(s);
+	    	Matcher m = p.matcher(s);
+	    	m.find();
+	    	int n = Integer.parseInt(m.group(1));
+	      sorted[n-1] = s + " ";
+	    }
+	    
+	    return Arrays.deepToString(sorted);
+	  }
 	
 	public static String longestConsec(String[] strarr, int k) {
         int n = strarr.length;
